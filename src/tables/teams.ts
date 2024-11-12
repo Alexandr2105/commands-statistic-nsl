@@ -1,31 +1,47 @@
-import {
-  BelongsToMany,
-  Column,
-  HasMany,
-  Model,
-  Table,
-} from 'sequelize-typescript';
+import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
 import { Users } from './users';
-import { RelLeaguesSeasons } from './rel.leagues.seasons';
-import { RelTeamsRelLeaguesSeasons } from './relTeamsRelLeaguesSeasons';
+import { Scores } from './scores';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Table
-export class Teams extends Model {
-  @Column({ allowNull: false })
+export class Teams extends Model<Teams> {
+  @ApiProperty({ type: 'string', format: 'UUID' })
+  @Column({
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV4,
+    primaryKey: true,
+  })
+  id: string;
+
+  @ApiProperty({ type: 'string' })
+  @Column({ type: DataType.STRING, allowNull: false })
   tittle: string;
 
-  @Column({ allowNull: false })
+  @ApiProperty({ type: 'string' })
+  @Column({ type: DataType.STRING, allowNull: false })
   description: string;
 
-  @Column({ allowNull: false })
+  @ApiProperty({ type: 'string' })
+  @Column({ type: DataType.STRING, allowNull: false })
   city: string;
 
-  @Column({ allowNull: false })
+  @ApiProperty({ type: 'string' })
+  @Column({ type: DataType.STRING, allowNull: false })
   club: string;
+
+  @ApiProperty({ type: 'number' })
+  @Column({ type: DataType.FLOAT, allowNull: true })
+  totalScore: number;
+
+  @ApiProperty({ type: 'string', example: '2024-06-23T14:00:05.223Z' })
+  createdAt?: string;
+
+  @ApiProperty({ type: 'string', example: '2024-06-23T14:00:05.223Z' })
+  updatedAt?: string;
 
   @HasMany(() => Users)
   users: Users[];
 
-  @BelongsToMany(() => RelLeaguesSeasons, () => RelTeamsRelLeaguesSeasons)
-  relLeaguesSeason: RelLeaguesSeasons[];
+  @HasMany(() => Scores)
+  scores: Scores[];
 }

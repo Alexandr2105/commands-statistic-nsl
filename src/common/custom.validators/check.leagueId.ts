@@ -12,7 +12,7 @@ export class CheckLeagueId implements ValidatorConstraintInterface {
     private readonly leaguesQueryRepository: LeaguesQueryRepository,
   ) {}
 
-  async validate(leagueId: number) {
+  async validate(leagueId: string) {
     const league = await this.leaguesQueryRepository.getLeaguesById(leagueId);
     return !!league;
   }

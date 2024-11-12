@@ -9,7 +9,7 @@ export class UsersRepository {
     private readonly usersModel: typeof Users,
   ) {}
 
-  async createUser(newUser: Users) {
+  async createUser(newUser: Users): Promise<Users> {
     return newUser.save();
   }
 }

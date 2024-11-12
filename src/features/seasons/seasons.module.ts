@@ -6,20 +6,19 @@ import { SeasonController } from './season.controller';
 import { AddLeagueToSeasonUseCase } from './application/useCases/commands/add.league.to.season.use-case';
 import { SeasonsQueryRepository } from './repositories/seasons.query.repository';
 import { LeaguesModule } from '../leagues/leagues.model';
-import { AddTeamToLeagueSeasonUseCase } from './application/useCases/commands/add.team.to.league.season.use-case';
-import { RelTeamsRelLeaguesSeasonsModule } from '../rel.teams.rel.leagues.seasons/rel.teams.rel.leagues.seasons.module';
 import { CheckSeasonId } from '../../common/custom.validators/check.seasonId';
+import { SeasonService } from './application/services/season.service';
 
 @Module({
-  imports: [SharedModule, LeaguesModule, RelTeamsRelLeaguesSeasonsModule],
+  imports: [SharedModule, LeaguesModule],
   controllers: [SeasonController],
   providers: [
     SeasonsRepository,
     SeasonsQueryRepository,
     CreateSeasonUseCase,
     AddLeagueToSeasonUseCase,
-    AddTeamToLeagueSeasonUseCase,
     CheckSeasonId,
+    SeasonService,
   ],
   exports: [],
 })

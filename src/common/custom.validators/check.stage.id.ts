@@ -10,7 +10,7 @@ import { StagesQueryRepository } from '../../features/stages/repositories/stages
 export class CheckStageId implements ValidatorConstraintInterface {
   constructor(private readonly stagesQueryRepository: StagesQueryRepository) {}
 
-  async validate(stageId: number) {
+  async validate(stageId: string) {
     const stage = await this.stagesQueryRepository.getStageById(stageId);
     return !!stage;
   }

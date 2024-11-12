@@ -1,13 +1,12 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { SeasonsQueryRepository } from '../../../repositories/seasons.query.repository';
-import { SeasonsRepository } from '../../../repositories/seasons.repository';
 import { LeaguesQueryRepository } from '../../../../leagues/reposirories/leagues.query.repository';
 import { NotFoundException } from '@nestjs/common';
 
 export class AddLeagueToSeasonCommand {
   constructor(
-    public seasonId: number,
-    public leagueId: number,
+    public seasonId: string,
+    public leagueId: string,
   ) {}
 }
 

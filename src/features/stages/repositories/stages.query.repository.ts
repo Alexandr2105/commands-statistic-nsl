@@ -8,11 +8,11 @@ export class StagesQueryRepository {
     private readonly stages: typeof Stages,
   ) {}
 
-  async getStageById(stageId: number) {
+  async getStageById(stageId: string) {
     return this.stages.findOne({ where: { id: stageId } });
   }
 
-  async getAllStages() {
-    return this.stages.findAll({ include: [Stages] });
+  async getAllStagesByLeagueId(leagueId: string): Promise<Stages[]> {
+    return this.stages.findAll({ where: { leagueId: leagueId } });
   }
 }

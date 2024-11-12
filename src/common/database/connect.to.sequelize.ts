@@ -2,14 +2,12 @@ import { Sequelize } from 'sequelize-typescript';
 import { settings } from '../settings';
 import { Roles } from 'src/tables/roles';
 import { Teams } from 'src/tables/teams';
-import { RelLeaguesSeasons } from 'src/tables/rel.leagues.seasons';
 import { Leagues } from 'src/tables/leagues';
 import { Users } from 'src/tables/users';
-import { Receipt } from 'src/tables/receipt';
-import { RelTeamsRelLeaguesSeasons } from 'src/tables/relTeamsRelLeaguesSeasons';
 import { Scores } from 'src/tables/scores';
 import { Seasons } from 'src/tables/seasons';
 import { Stages } from 'src/tables/stages';
+import { RelTeamsLeagues } from '../../tables/rel.teams.leagues';
 
 export const connectToSequelize = [
   {
@@ -25,9 +23,7 @@ export const connectToSequelize = [
       });
       sequelize.addModels([
         Leagues,
-        Receipt,
-        RelLeaguesSeasons,
-        RelTeamsRelLeaguesSeasons,
+        RelTeamsLeagues,
         Roles,
         Scores,
         Seasons,

@@ -2,13 +2,13 @@ import { Module } from '@nestjs/common';
 import { SharedModule } from '../../common/modules/shared.module';
 import { CreateScoreUseCase } from './application/useCases/create.score.use-case';
 import { ScoresRepository } from './repositories/scores.repository';
-import { ScoresQueryRepository } from './repositories/scores.query.repository';
+import { StagesModule } from '../stages/stages.module';
 import { ScoresController } from './scores.controller';
 
 @Module({
-  imports: [SharedModule],
+  imports: [SharedModule, StagesModule],
   controllers: [ScoresController],
-  providers: [CreateScoreUseCase, ScoresRepository, ScoresQueryRepository],
+  providers: [CreateScoreUseCase, ScoresRepository],
   exports: [],
 })
 export class ScoresModule {}

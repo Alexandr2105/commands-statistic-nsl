@@ -1,37 +1,35 @@
-import { Body, Controller, Param, Post } from '@nestjs/common';
-import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { CommandBus } from '@nestjs/cqrs';
 import { CreateSeasonDto } from './dto/create.season.dto';
 import { CreateSeasonCommand } from './application/useCases/commands/create.season.use-case';
 import { AddLeagueToSeasonCommand } from './application/useCases/commands/add.league.to.season.use-case';
-import { AddTeamToLeagueSeasonCommand } from './application/useCases/commands/add.team.to.league.season.use-case';
-import { AddTeamToLeagueSeasonDto } from './dto/add.team.to.league.season.dto';
+import { Seasons } from '../../tables/seasons';
+import { SeasonService } from './application/services/season.service';
 
 @Controller('seasons')
 export class SeasonController {
   constructor(
     private readonly commandBus: CommandBus,
-    private readonly queryBus: QueryBus,
+    private readonly seasonService: SeasonService,
   ) {}
 
   @Post()
-  async createLeague(@Body() body: CreateSeasonDto) {
+  async createSeason(@Body() body: CreateSeasonDto): Promise<Seasons> {
     return this.commandBus.execute(new CreateSeasonCommand(body));
   }
 
   @Post(':seasonId/leagues/:leagueId')
   async addLeagueToSeason(
-    @Param('seasonId') seasonId: number,
-    @Param('leagueId') leagueId: number,
+    @Param('seasonId') seasonId: string,
+    @Param('leagueId') leagueId: string,
   ) {
     return this.commandBus.execute(
       new AddLeagueToSeasonCommand(seasonId, leagueId),
     );
   }
 
-  @Post(':leagueSeasonId/:teamId')
-  async addTeamToLeagueSeason(@Param() param: AddTeamToLeagueSeasonDto) {
-    return this.commandBus.execute(
-      new AddTeamToLeagueSeasonCommand(param.leagueSeasonId, param.teamId),
-    );
+  @Get(':seasonId')
+  async getSeasonBy(@Param('seasonId') seasonId: string): Promise<Seasons> {
+    return this.seasonService.getSeasonByIdWithModels(seasonId);
   }
 }

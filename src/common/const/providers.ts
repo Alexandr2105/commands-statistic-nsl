@@ -3,10 +3,9 @@ import { Roles } from 'src/tables/roles';
 import { Seasons } from 'src/tables/seasons';
 import { Teams } from 'src/tables/teams';
 import { Users } from 'src/tables/users';
-import { RelLeaguesSeasons } from '../../tables/rel.leagues.seasons';
-import { RelTeamsRelLeaguesSeasons } from '../../tables/relTeamsRelLeaguesSeasons';
 import { Stages } from '../../tables/stages';
 import { Scores } from '../../tables/scores';
+import { RelTeamsLeagues } from '../../tables/rel.teams.leagues';
 
 export enum providersConst {
   usersRepository = 'USERS_REPOSITORY',
@@ -14,8 +13,7 @@ export enum providersConst {
   teamsRepository = 'TEAMS_REPOSITORY',
   leaguesRepository = 'LEAGUES_REPOSITORY',
   seasonsRepository = 'SEASONS_REPOSITORY',
-  relLeaguesSeasonsRepository = 'REL_LEAGUES_SEASONS_REPOSITORY',
-  relTeamRelLeaguesSeasonsRepository = 'REL_TEAMS_REL_LEAGUES_SEASONS_REPOSITORY',
+  relTeamLeaguesRepository = 'REL_TEAMS_LEAGUES_REPOSITORY',
   stagesRepository = 'STAGES_REPOSITORY',
   scoresRepository = 'SCORES_REPOSITORY',
 }
@@ -42,19 +40,15 @@ export const providers = [
     useValue: Seasons,
   },
   {
-    provide: providersConst.relLeaguesSeasonsRepository,
-    useValue: RelLeaguesSeasons,
-  },
-  {
-    provide: providersConst.relTeamRelLeaguesSeasonsRepository,
-    useValue: RelTeamsRelLeaguesSeasons,
-  },
-  {
     provide: providersConst.stagesRepository,
     useValue: Stages,
   },
   {
     provide: providersConst.scoresRepository,
     useValue: Scores,
+  },
+  {
+    provide: providersConst.relTeamLeaguesRepository,
+    useValue: RelTeamsLeagues,
   },
 ];

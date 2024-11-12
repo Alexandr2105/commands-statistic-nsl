@@ -11,7 +11,7 @@ export class CreateUserCommand {
 export class CreateUserUseCase implements ICommandHandler<CreateUserCommand> {
   constructor(private readonly usersRepository: UsersRepository) {}
 
-  async execute(command: CreateUserCommand): Promise<any> {
+  async execute(command: CreateUserCommand): Promise<Users> {
     const newUser = Users.build({
       userName: command.body.userName,
       email: command.body.email,

@@ -9,7 +9,7 @@ export class LeaguesRepository {
     private readonly leaguesModel: typeof Leagues,
   ) {}
 
-  async createSeason(newLeague: Leagues) {
+  async createSeason(newLeague: Leagues): Promise<Leagues> {
     return newLeague.save();
   }
 }

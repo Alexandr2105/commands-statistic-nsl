@@ -9,9 +9,7 @@ export class SeasonsRepository {
     private readonly teamsModel: typeof Seasons,
   ) {}
 
-  async createSeason(newSeason: Seasons) {
-    console.log(newSeason);
-
+  async createSeason(newSeason: Seasons): Promise<Seasons> {
     return newSeason.save();
   }
 }

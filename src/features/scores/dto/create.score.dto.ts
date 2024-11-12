@@ -1,12 +1,8 @@
-import { IsNumber, Validate } from 'class-validator';
-import { CheckTeamLeagueSeasonId } from '../../../common/custom.validators/check.team.league.season.id';
-import { CheckStageId } from '../../../common/custom.validators/check.stage.id';
+import { IsNumber } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateScoreDto {
-  @Validate(CheckStageId)
-  stageId: number;
-  @Validate(CheckTeamLeagueSeasonId)
-  relTeamsRelLeagueSeasonId: number;
+  @ApiProperty({ type: Number })
   @IsNumber()
-  score: number;
+  points: number;
 }

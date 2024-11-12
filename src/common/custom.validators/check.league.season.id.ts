@@ -3,18 +3,17 @@ import {
   ValidatorConstraintInterface,
 } from 'class-validator';
 import { Injectable } from '@nestjs/common';
-import { RelLeaguesSeasonsQueryRepository } from '../../features/rel.leagues.seasons/reposirories/rel.leagues.seasons.query.repository';
+import { LeaguesQueryRepository } from '../../features/leagues/reposirories/leagues.query.repository';
 
 @ValidatorConstraint()
 @Injectable()
 export class CheckLeagueSeasonId implements ValidatorConstraintInterface {
   constructor(
-    private readonly relLeaguesSeasonsQueryRepository: RelLeaguesSeasonsQueryRepository,
+    private readonly leaguesQueryRepository: LeaguesQueryRepository,
   ) {}
 
-  async validate(teamId: number) {
-    const team =
-      await this.relLeaguesSeasonsQueryRepository.getRelLeaguesSeasons(teamId);
+  async validate(leagueId: string) {
+    const team = await this.leaguesQueryRepository.getLeaguesById(leagueId);
     return !!team;
   }
 

@@ -1,11 +1,11 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { RelTeamsRelLeaguesSeasons } from '../../../../../tables/relTeamsRelLeaguesSeasons';
-import { RelTeamsRelLeaguesSeasonsRepository } from '../../../../rel.teams.rel.leagues.seasons/reposirories/rel.teams.rel.leagues.seasons.repository';
+import { RelTeamsLeagues } from '../../../../../tables/rel.teams.leagues';
+import { RelTeamsLeaguesRepository } from '../../../../rel.teams.leagues/reposirories/rel.teams.leagues.repository';
 
 export class AddTeamToLeagueSeasonCommand {
   constructor(
-    public readonly leagueSeasonId: number,
-    public readonly teamId: number,
+    public readonly leagueId: string,
+    public readonly teamId: string,
   ) {}
 }
 
@@ -14,13 +14,13 @@ export class AddTeamToLeagueSeasonUseCase
   implements ICommandHandler<AddTeamToLeagueSeasonCommand>
 {
   constructor(
-    private readonly relTeamsRelLeaguesSeasonsRepository: RelTeamsRelLeaguesSeasonsRepository,
+    private readonly relTeamsRelLeaguesSeasonsRepository: RelTeamsLeaguesRepository,
   ) {}
 
-  execute(command: AddTeamToLeagueSeasonCommand): Promise<any> {
-    const relTeamsRelSeasonLeagues = RelTeamsRelLeaguesSeasons.build({
+  execute(command: AddTeamToLeagueSeasonCommand): Promise<RelTeamsLeagues> {
+    const relTeamsRelSeasonLeagues = RelTeamsLeagues.build({
       teamId: command.teamId,
-      relLeaguesSeasonsId: command.leagueSeasonId,
+      leagueId: command.leagueId,
     });
 
     return this.relTeamsRelLeaguesSeasonsRepository.addTeamToLeagueSeason(

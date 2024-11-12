@@ -12,7 +12,7 @@ export class CheckSeasonId implements ValidatorConstraintInterface {
     private readonly seasonsQueryRepository: SeasonsQueryRepository,
   ) {}
 
-  async validate(seasonId: number) {
+  async validate(seasonId: string) {
     const season = await this.seasonsQueryRepository.getSeasonById(seasonId);
     return !!season;
   }

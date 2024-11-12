@@ -13,7 +13,7 @@ export class CreateSeasonUseCase
 {
   constructor(private readonly seasonRepository: SeasonsRepository) {}
 
-  async execute(command: CreateSeasonCommand): Promise<any> {
+  async execute(command: CreateSeasonCommand): Promise<Seasons> {
     const newSeason = Seasons.build({
       description: command.body.description,
       title: command.body.title,

@@ -10,7 +10,7 @@ import { TeamsQueryRepository } from 'src/features/teams/reposirories/teams.quer
 export class CheckTeamId implements ValidatorConstraintInterface {
   constructor(private readonly teamsQueryRepository: TeamsQueryRepository) {}
 
-  async validate(teamId: number) {
+  async validate(teamId: string): Promise<boolean> {
     const team = await this.teamsQueryRepository.getTeamById(teamId);
     return !!team;
   }

@@ -15,6 +15,6 @@ import { CheckStageId } from '../../common/custom.validators/check.stage.id';
     StagesQueryRepository,
     CheckStageId,
   ],
-  exports: [],
+  exports: [StagesQueryRepository],
 })
 export class StagesModule {}

@@ -1,10 +1,10 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { Leagues } from 'src/tables/leagues';
-import { CreateLegueDto } from '../../../dto/create.league.dto';
 import { LeaguesRepository } from '../../../reposirories/leagues.repository';
+import { CreateLeagueDto } from '../../../dto/create.league.dto';
 
 export class CreateLeagueCommand {
-  constructor(public readonly body: CreateLegueDto) {}
+  constructor(public readonly body: CreateLeagueDto) {}
 }
 
 @CommandHandler(CreateLeagueCommand)
@@ -13,7 +13,7 @@ export class CreateLeagueUseCase
 {
   constructor(private readonly leaguesRepository: LeaguesRepository) {}
 
-  async execute(command: CreateLeagueCommand): Promise<any> {
+  async execute(command: CreateLeagueCommand): Promise<Leagues> {
     const newLeague = Leagues.build({
       description: command.body.description,
       title: command.body.title,

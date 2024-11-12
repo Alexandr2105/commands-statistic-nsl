@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
 import { HttpExceptionFilter } from './exception.filter';
 import { useContainer } from 'class-validator';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -27,6 +28,16 @@ async function bootstrap() {
   );
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
   app.useGlobalFilters(new HttpExceptionFilter());
+
+  const configSwagger = new DocumentBuilder()
+    .setTitle('Uhc documentation')
+    .setDescription('The Uhc API description')
+    .setVersion('1.0')
+    .addBearerAuth()
+    .build();
+  const document = SwaggerModule.createDocument(app, configSwagger);
+  SwaggerModule.setup('swagger', app, document);
+
   await app.listen(3000);
 }
 bootstrap();
